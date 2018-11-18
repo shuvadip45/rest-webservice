@@ -25,7 +25,7 @@ SECRET_KEY = '4x^i6d887(%%-o#04wc$k2bhcf!p6^hkr0nhr$f#2+j6zgj!_q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://restindianbank.herokuapp.com/']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
