@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.db import connection
 import json
 
-df=pd.read_csv('media/bank_branches.csv')
 cursor=connection.cursor()
 
 def home(request):
