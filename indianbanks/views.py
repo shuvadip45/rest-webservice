@@ -1,19 +1,24 @@
 from django.shortcuts import render
 import pandas as pd
 from django.http import HttpResponse
+from django.db import connection
+import json
 
 df=pd.read_csv('media/bank_branches.csv')
-
+cursor=connection.cursor()
 
 def home(request):
     return render(request, 'home.html')
 
 def bankdetails(request,ifsc):
-    df1=df.loc[df['ifsc']==ifsc]
-    return HttpResponse(df1.to_html())
+    cursor.execute("SELECT * FROM mytable WHERE ifsc=(%s)", [ifsc])
+    rows=cursor.fetchall()
+    print(rows)
+    return HttpResponse(json.dumps(rows),content_type="application/json")
 
 
 
 def bankbranches(request, bankname, city):
-    df1=df.loc[(df['bank_name']==bankname) & (df['city']==city)]
-    return HttpResponse(df1.to_html())
+    cursor.execute("SELECT * FROM mytable WHERE bank_name=(%s) AND city=(%s)", [bankname,city])
+    rows=cursor.fetchall()
+    return HttpResponse(json.dumps(rows),content_type="application/json")
